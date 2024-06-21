@@ -2,6 +2,8 @@
 
 
 <!--ts-->
+  - [例子](./doc_example/例子)
+    - [升级.md](./doc_example/例子/升级.md)
   - [升级](./doc_example/升级)
     - [相关](./doc_example/升级/相关)
       - [升级.md](./doc_example/升级/相关/升级.md)
