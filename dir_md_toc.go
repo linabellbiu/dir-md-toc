@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -62,8 +63,11 @@ func listFiles(path string, level int, file *os.File, ignoreList []string) {
 }
 
 func main() {
-	path := "./"
-	ignoreFilePath := "./.ignore"
+	dirPath := flag.String("dir", ".", "Directory to generate")
+	outPath := flag.String("out", ".", "TOC to output path")
+	flag.Parse()
+
+	ignoreFilePath := fmt.Sprintf("%s/.ignore", *dirPath)
 
 	// 读取忽略列表
 	ignoreList, err := readIgnoreFile(ignoreFilePath)
@@ -72,7 +76,7 @@ func main() {
 		return
 	}
 
-	f, err := os.Create("README.md")
+	f, err := os.Create(fmt.Sprintf("%s/README.md", *outPath))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -80,5 +84,5 @@ func main() {
 	defer f.Close()
 
 	_, _ = fmt.Fprintf(f, "# 目录\n\n")
-	listFiles(path, 1, f, ignoreList)
+	listFiles(*dirPath, 1, f, ignoreList)
 }
