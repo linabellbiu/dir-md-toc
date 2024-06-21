@@ -19,17 +19,17 @@ jobs:
         go-version: '1.21'
 
     - name: Build
-      run: go build -o ./bin/dir-md-toc .
-      
+      run: go build -o ./bin/dir-md-toc ./...
+
     - name: Generate Toc
-      run: ./bin/dir-md-toc -dir ./example -out ./example
-      
-    - name: Commit build
+      run: ./bin/dir-md-toc -dir ./doc_example
+
+    - name: Commit md
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       run: |
           git config --global user.name "linabellbiu"
           git config --global user.email "coke10086@gmail.com"
-          git add .
-          git commit -m 'Update build' || true
+          git add README.md
+          git commit -m 'Update README.md' || true
           git push    
