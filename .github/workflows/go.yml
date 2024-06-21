@@ -20,9 +20,13 @@ jobs:
 
     - name: Build
       run: go build -o ./bin/dir-md-toc .
+      
+    - name: Generate Toc
+      run: ./bin/dir-md-toc -dir ./example -out ./example
+      
+    - name: Commit build
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    - name: Commit build
       run: |
           git config --global user.name "linabellbiu"
           git config --global user.email "coke10086@gmail.com"
